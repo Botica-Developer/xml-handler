@@ -34,8 +34,9 @@ export default defineComponent({
               const { emissionDate, dteType } = getGeneralData(xmlDoc)
               const { authorization, series, number } = getExemptionData(xmlDoc)
               const affectedInvoice = getReferenceData(xmlDoc)
+              const amounts = getAmountsData(xmlDoc)
 
-              exemptions.value.push({ emissionDate, dteType, authorization, series, number, affectedInvoice })
+              exemptions.value.push({ emissionDate, dteType, authorization, series, number, affectedInvoice, amounts })
             }
             resolve()
           } catch (error) {
@@ -59,7 +60,7 @@ export default defineComponent({
 
       if (!emissionDate || !dteType) throw new Error('El XML no tiene los atributos requeridos')
 
-      return { emissionDate, dteType }
+      return { emissionDate: emissionDate.split('T')[0], dteType }
     }
 
     const getExemptionData = (xmlDoc: Document) => {
@@ -84,10 +85,26 @@ export default defineComponent({
       const authorization = data.getAttribute('NumeroAutorizacionDocumentoOrigen')
       const series = data.getAttribute('SerieDocumentoOrigen')
       const number = data.getAttribute('NumeroDocumentoOrigen')
+      const documentDate = data.getAttribute('FechaEmisionDocumentoOrigen')
 
-      if (!authorization || !series || !number) throw new Error('El XML no tiene los atributos requeridos')
+      if (!authorization || !series || !number || !documentDate)
+        throw new Error('El XML no tiene los atributos requeridos')
 
-      return { authorization, series, number }
+      return { authorization, series, number, documentDate }
+    }
+
+    const getAmountsData = (xmlDoc: Document) => {
+      const totalTax = xmlDoc.getElementsByTagName('dte:TotalImpuesto')[0]
+      const grandTotal = xmlDoc.getElementsByTagName('dte:GranTotal')[0]
+
+      if (!totalTax || !grandTotal) throw new Error('El XML no tiene los atributos requeridos')
+
+      const totalTaxValue = totalTax.getAttribute('TotalMontoImpuesto')
+      const grandTotalValue = grandTotal.textContent
+
+      if (!totalTaxValue || !grandTotalValue) throw new Error('El XML no tiene los atributos requeridos')
+
+      return { grandTotal: grandTotalValue, totalTax: totalTaxValue }
     }
 
     const onClear = () => {

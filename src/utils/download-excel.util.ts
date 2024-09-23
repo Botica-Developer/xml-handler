@@ -41,9 +41,12 @@ const parseData = (reports: Exemption[]): ExemptionFlatted[] => {
     Autorización: report.authorization,
     Serie: report.series,
     Número: report.number,
+    'Gran Total': report.amounts.grandTotal,
+    'Total Impuesto': report.amounts.totalTax,
     'Autorización de Factura Afectada': report.affectedInvoice.authorization,
     'Serie de Factura Afectada': report.affectedInvoice.series,
-    'Número de Factura Afectada': report.affectedInvoice.number
+    'Número de Factura Afectada': report.affectedInvoice.number,
+    'Fecha Emisión de Factura Afectada': report.affectedInvoice.documentDate
   }))
 }
 

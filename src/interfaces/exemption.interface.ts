@@ -5,12 +5,19 @@ export interface Exemption {
   series: string
   number: string
   affectedInvoice: AffectedInvoice
+  amounts: Amounts
 }
 
 interface AffectedInvoice {
   series: string
   number: string
   authorization: string
+  documentDate: string
+}
+
+interface Amounts {
+  grandTotal: string
+  totalTax: string
 }
 
 export interface ExemptionFlatted {
