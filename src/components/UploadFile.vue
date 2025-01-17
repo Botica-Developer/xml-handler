@@ -1,6 +1,8 @@
 <template>
   <div class="card w-2/3 p-10">
+    <!-- Componente para mostrar notificaciones -->
     <Toast />
+    <!-- Componente para subir archivos -->
     <FileUpload
       @uploader="onUpload"
       @clear="onClear"
@@ -13,9 +15,11 @@
       uploadLabel="Descargar"
       cancelLabel="Cancelar"
     >
+      <!-- Plantilla para mostrar el contenido de los archivos subidos -->
       <template #content="{ files, removeFileCallback }">
         <div class="flex flex-col gap-8 pt-4">
           <div v-if="files.length > 0" class="flex flex-wrap gap-4">
+            <!-- Componente para virtualizar la lista de archivos -->
             <VirtualScroller
               :items="files"
               :itemSize="50"
@@ -26,7 +30,7 @@
                   <span class="font-semibold text-ellipsis whitespace-nowrap overflow-hidden mr-1">{{
                     item.name
                   }}</span>
-
+                  <!-- Botón para eliminar un archivo -->
                   <Button icon="pi pi-times" @click="removeFileCallback(item)" outlined rounded severity="danger" />
                 </div>
               </template>
@@ -34,6 +38,7 @@
           </div>
         </div>
       </template>
+      <!-- Plantilla para mostrar cuando no hay archivos subidos -->
       <template #empty>
         <span>Arrastra y suelta archivos aquí para subirlos</span>
       </template>

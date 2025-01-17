@@ -1,45 +1,88 @@
-# parse-xml
+# Proyecto Vue con Bun y Tailwind CSS
 
-This template should help get you started developing with Vue 3 in Vite.
+Este proyecto utiliza [Vue.js](https://vuejs.org/) como framework principal, [Bun](https://bun.sh/) como gestor de paquetes y entorno de ejecución, y [Tailwind CSS](https://tailwindcss.com/) para el diseño de la interfaz.
 
-## Recommended IDE Setup
+## Requisitos previos
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+Asegúrate de tener instalado lo siguiente en tu máquina:
 
-## Type Support for `.vue` Imports in TS
+- [Bun](https://bun.sh/) (puedes instalarlo siguiendo las instrucciones en su [documentación oficial](https://bun.sh/docs/installation))
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+## Instalación
 
-## Customize configuration
+1. Clona este repositorio:
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+   ```bash
+   git clone https://github.com/Botica-Developer/xml-handler.git
+   cd xml-handler
+   ```
 
-## Project Setup
+2. Instala las dependencias:
 
-```sh
-bun install
+   ```bash
+   bun install
+   ```
+
+3. Configura Tailwind CSS:
+
+   - Si no está configurado, ejecuta el siguiente comando para inicializar Tailwind:
+     ```bash
+     npx tailwindcss init
+     ```
+   - Configura el archivo `tailwind.config.js` para incluir tus rutas de Vue:
+     ```javascript
+     module.exports = {
+       content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
+       theme: {
+         extend: {}
+       },
+       plugins: []
+     }
+     ```
+
+4. Asegúrate de importar Tailwind CSS en tu proyecto:
+
+   - En el archivo `src/main.css` o similar:
+
+     ```css
+     @tailwind base;
+     @tailwind components;
+     @tailwind utilities;
+     ```
+
+   - Luego, asegúrate de incluir este archivo CSS en tu archivo principal `main.ts` o `main.js`:
+     ```javascript
+     import './main.css'
+     ```
+
+## Iniciar el proyecto
+
+Para iniciar el servidor de desarrollo, ejecuta:
+
+```bash
+bun run dev
 ```
 
-### Compile and Hot-Reload for Development
+Esto abrirá la aplicación en tu navegador en [http://localhost:3000](http://localhost:3000) (puedes verificar el puerto configurado en el proyecto).
 
-```sh
-bun dev
+## Compilar para producción
+
+Para compilar el proyecto para producción, utiliza:
+
+```bash
+bun run build
 ```
 
-### Type-Check, Compile and Minify for Production
+Los archivos compilados estarán en la carpeta `dist`.
 
-```sh
-bun build
-```
+## Scripts disponibles
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+- **`bun run dev`**: Inicia el servidor de desarrollo.
+- **`bun run build`**: Compila el proyecto para producción.
+- **`bun run preview`**: Sirve la aplicación compilada para previsualizarla.
 
-```sh
-bun test:unit
-```
+## Documentación
 
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-bun lint
-```
+- [Documentación de Vue.js](https://vuejs.org/guide/introduction.html)
+- [Documentación de Bun](https://bun.sh/docs)
+- [Documentación de Tailwind CSS](https://tailwindcss.com/docs)
